@@ -122,7 +122,9 @@ module.exports = (gulp, config) => {
     }
     gulp.watch(config.paths.js, ['scripts']);
     gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']).on('change', (event) => {
-      pa11y.pa11yTest(event.path, browserSync, config);
+      // temp windows path hack.
+      let eventpath = event.path.replace(/\\/g, "/");
+      pa11y.pa11yTest(eventpath, browserSync, config);
     });
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
